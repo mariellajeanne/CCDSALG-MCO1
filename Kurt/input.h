@@ -20,7 +20,7 @@ void scanOperator (string input, token operator)
     int increment = 1;
 
     operatorContainer[0] = input[0];
-    if (!(input[1] == '(' || input[1] == ')' || !input[1] == '!' || input[0] == '(' || input[0] == ')' || isdigit(input[1])))
+    if (!(input[1] == '(' || input[1] == ')' || input[1] == '!' || input[0] == '(' || input[0] == ')' || isdigit(input[1])))
     {
         operatorContainer[1] = input[1];
         increment++;
