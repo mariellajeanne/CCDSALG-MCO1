@@ -24,7 +24,7 @@ int precedenceNode(tokenNode * tokens)
     if (tokens == NULL)
         return 0;
     else
-        return precedenceOf(tokens->tokens) - (tokens->tokens[0] == '^');    
+        return precedenceOf(tokens->tokens) - (tokens->tokens[0] == '^' || '!');    
 }
 
 void convertInToPost (tokenNode ** input, tokenNode ** output)
