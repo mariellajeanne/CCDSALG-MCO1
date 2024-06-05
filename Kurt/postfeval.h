@@ -70,7 +70,7 @@ void evaluatePostfix(tokenNode ** source)
 
             operand[1] = popInt(&outputStack);
             operand[0] = popInt(&outputStack);
-            if (operand[1] == 0 && strcmp(currentToken, "/") == 0)
+            if (operand[1] == 0 && (currentToken[0] == '/' || currentToken[0] == '%'))
             {
                 printf(/*RED*/"Division by zero error!"/*RESET*/"\n");
                 return;
