@@ -71,7 +71,7 @@ void queueToken (token token, tokenNode ** outputQueue)
 
 void printQueue (tokenNode * output)
 {
-    printf(BLUE"%s "RESET, output->tokens);
+    printf(/*BLUE*/"%s "/*RESET*/, output->tokens);
     if (output->next != NULL)
         printQueue(output->next);
     else

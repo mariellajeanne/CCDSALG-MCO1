@@ -72,7 +72,7 @@ void evaluatePostfix(tokenNode ** source)
             operand[0] = popInt(&outputStack);
             if (operand[1] == 0 && strcmp(currentToken, "/") == 0)
             {
-                printf(RED"Division by zero error!"RESET"\n");
+                printf(/*RED*/"Division by zero error!"/*RESET*/"\n");
                 return;
             }
             placeholder = computeBinOperation(operand[0], currentToken, operand[1]);
@@ -81,5 +81,5 @@ void evaluatePostfix(tokenNode ** source)
     }
     placeholder = outputStack->number;
     free(outputStack);
-    printf(GREEN"%i"RESET"\n", placeholder);
+    printf(/*GREEN*/"%i"/*RESET*/"\n", placeholder);
 }
