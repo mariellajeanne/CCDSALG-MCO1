@@ -10,6 +10,8 @@ int computeBinOperation (int firstOperand, token operator, int secondOperand)
             return firstOperand * secondOperand;
         case '/':
             return firstOperand / secondOperand;
+        case '%':
+            return firstOperand / secondOperand;
         case '^':
             return (int)pow(firstOperand, secondOperand);
         case '<':
