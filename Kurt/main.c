@@ -19,10 +19,10 @@ int main (void)
             splitToTokens(input, &infix);
             convertInToPost(&infix, &postfix);
 
-            // printQueue(postfix);
+            printQueue(postfix);
 
             evaluatePostfix(&postfix);
-            // printf("\n");
+            printf("\n");
         }
     } while (strcmp(input, "QUIT") != 0);
     return 0;

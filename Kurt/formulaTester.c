@@ -43,10 +43,10 @@ int main() {
     printf("%i\n", (int)pow(2, (pow(2, 3))));
     printf("%i\n", (int)pow(3, (int)pow(2, (int)pow(1, 2))));
     printf("%i\n", (int)pow((int)pow(2, 2), 3));
-    printf("%i\n", (int)pow(2, (int)pow(3, 1) * 2));
+    printf("%i\n", (int)pow(2, pow(pow(3, 1), 2)));
     printf("%i\n", 37 / 3 * 24 % (int)pow(57, 2) / 32);
     printf("%i\n", (int)pow(4, 4) / 66 / 13 * 6 / (int)pow(70, 1)); // Invalid C syntax
-    printf("%i\n", 50 / (int)pow(98, 1) % 56 * (31 / 37) * (int)pow(0, 0));
+    printf("%i\n", 50 / ((int)pow(98, 1) % 56) * (int)pow((31 / 37), 0));
     printf("Division by zero error!\n");
     // printf("%i\n", (3 * 16 / 12) % (0 * (int)pow(3, 12 / 6)) * 18); // Division by zero is undefined
     printf("%i\n", 37 * 54 / 2 % 38 + 85 - (int)pow(3, 2));

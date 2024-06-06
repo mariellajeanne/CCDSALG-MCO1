@@ -31,13 +31,13 @@ Division by zero error!
 32
 Division by zero error!
 8
-64
+256
 9
 64
-64
+512
 9
 0
-0
+1
 Division by zero error!
 87
 -909
