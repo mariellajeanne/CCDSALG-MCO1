@@ -5,6 +5,9 @@ int main() {
     printf("%i\n", 3);
     printf("%i\n", 79);
     printf("%i\n", 91);
+    printf("%i\n", !2);
+    printf("%i\n", !0);
+    printf("%i\n", !!!1);
     printf("%i\n", 5 + 6);
     printf("%i\n", 17 - 3);
     printf("%i\n", 38 + 97 - 80);
@@ -13,6 +16,7 @@ int main() {
     printf("%i\n", 57 - (52 + 61));
     printf("%i\n", (82 - 10) + 23);
     printf("%i\n", (76 + 39) - 48);
+    printf("%i\n", !!!!5+2);
     printf("%i\n", 2 * 39);
     printf("%i\n", 21 / 3);
     printf("Division by zero error!\n");
@@ -43,7 +47,7 @@ int main() {
     printf("%i\n", (int)pow(2, (pow(2, 3))));
     printf("%i\n", (int)pow(3, (int)pow(2, (int)pow(1, 2))));
     printf("%i\n", (int)pow((int)pow(2, 2), 3));
-    printf("%i\n", (int)pow(2, pow(pow(3, 1), 2)));
+    printf("%i\n", (int)pow(2, pow(pow(3, (!0)), 2)));
     printf("%i\n", 37 / 3 * 24 % (int)pow(57, 2) / 32);
     printf("%i\n", (int)pow(4, 4) / 66 / 13 * 6 / (int)pow(70, 1)); // Invalid C syntax
     printf("%i\n", 50 / ((int)pow(98, 1) % 56) * (int)pow((31 / 37), 0));
@@ -59,6 +63,7 @@ int main() {
     printf("%i\n", 14 < 10);
     printf("%i\n", 49 > 75 < 68);
     printf("%i\n", 75 < 32 > 5);
+    printf("%i\n", 56>22==!0);
     printf("%i\n", 4 >= 57);
     printf("%i\n", 48 >= 48);
     printf("%i\n", 79 >= 42);
@@ -78,15 +83,17 @@ int main() {
     printf("%i\n", 0 && 67);
     printf("%i\n", 6 && 3 > 2);
     printf("%i\n", 6 == 7 || 19);
+    printf("%i\n", !0==1);
+    printf("%i\n", !!(1==!0));
     printf("%i\n", 44 <= 65 && 98 > 68);
     printf("%i\n", 59 < 69 || 35 >= 37);
     printf("%i\n", 61 > 44 || 30 < 33 && 4 >= 61);
     printf("%i\n", 45 != 9 && 62 > 59 || 1 >= 66);
     printf("%i\n", (1 == (12 || 94)) != 16 && 66 < 47);
     printf("%i\n", (23 != 19) && ((44 || 94) > 0 != 96));
-    printf("%i\n", (69 - 79 * 91) > (78 + 22 / 13) && 14 < 88);
+    printf("%i\n", (69 - 79 * 91) > !(78 + 22 / 13) && !14 < 88);
     printf("%i\n", 43 + 50 == 93 && 16 <= 93 != 35 || 24 < 21);
-    printf("%i\n", (65 < 73) % 34 != (98 - 97) && 82 > 58 <= 50);
+    printf("%i\n", (!65 < 73) % 34 != (98 - 97) && 82 > 58 <= 50);
     printf("%i\n", ((54 * (96 - 48) + 39 % 97) || 84 > 26) + 39);
 
     return 0;

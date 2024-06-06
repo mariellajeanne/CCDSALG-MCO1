@@ -3,18 +3,18 @@ int precedenceOf (token operator)
     switch (operator[0])
     {
         case '(': case ')': return 9;
-        case '^': return 8;
         case '!':
             if (operator[1] == '=')
                 return 3;
             else
-                return 7;
+                return 8;
+        case '^': return 7;
         case '*': case '/': case '%': return 6;
         case '+': case '-': return 5;
         case '>': case '<': return 4;
         case '=': return 3;
-        case '|': return 2;
-        case '&': return 1;
+        case '&': return 2;
+        case '|': return 1;
         default: return 0;
     }
 }
@@ -54,7 +54,7 @@ void convertInToPost (tokenNode ** input, tokenNode ** output)
                    
             }
             else if (operators != NULL)
-            {
+            {           
                 while (precedenceOf(currentToken) <= precedenceNode(operators)  
                     && strcmp(operators->tokens, "(") != 0)
                 {
