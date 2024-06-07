@@ -33,7 +33,6 @@ void storeInfix(Queue *queue, char *infix) {
         // Executes if the current character is a number.
         if(isNumber(infix[i])) {
 
-            
             operand_str[operand_count] = infix[i]; // Concatinates the current number to the operand's string.            
             operand_str[operand_count + 1] = '\0'; // Sets the next character to null.
 
