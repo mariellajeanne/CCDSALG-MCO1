@@ -213,7 +213,7 @@ TokenType getQueueEntryType(QueueEntry entry) {
 /**
  * Prints out the tokens of a queue separated by space.
  * 
- * @param this {Queue} The queue to be printed.
+ * @param queue {Queue *} The queue to be printed.
 */
 void printQueue(Queue *queue) {
     
