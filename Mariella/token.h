@@ -96,9 +96,9 @@ int getPriority(char *operator, PriorityType type) {
 /**
  * Operates a postfix expression with two operands and one operator.
  * 
- * @param operand_1 {void *} A pointer to the first operand.
- * @param operand_2 {void *} A pointer to the second operand.
- * @param operator {void *} A pointer to the operator.
+ * @param operand_1 {int} The first operand.
+ * @param operand_2 {int} The second operand.
+ * @param operator {char *} The operator.
  * @return {int} The evaluated expression.
 */
 int operate(int operand_1, int operand_2, char *operator) {
