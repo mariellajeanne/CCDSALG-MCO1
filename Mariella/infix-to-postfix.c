@@ -66,8 +66,8 @@ void storeInfix(Queue *queue, char *infix) {
             // Executes if the operator has two characters.
             if(i < infix_len - 1 && hasLengthTwo(infix[i], infix[i + 1])) {
                 
-                operator_str = calloc(3, sizeof(char)); // Allocates memory for the operator string.
-                sprintf(operator_str, "%c%c", infix[i], infix[i + 1]);  // Adds the characters to the buffer.
+                operator_str = calloc(3, sizeof(char)); // Allocates memory for the operator.
+                sprintf(operator_str, "%c%c", infix[i], infix[i + 1]); // Stores the operator string.
                 
                 i++; // Skips an iteration.
 
