@@ -17,39 +17,27 @@
 
 int main() {
 
-    // Allocates memory for the user's input.
-    char *input = calloc((1 << 8), sizeof(char));
-
-    // Queues for the infix and postfix expressions.
-    Queue *infix, *postfix;
+    char *input = calloc((1 << 8), sizeof(char));   // Allocates memory for the user's input.
+    Queue *infix, *postfix;                         // Queues for the infix and postfix expressions.
 
     // Continues while the user hasn't quit.
+    
     while(strcmp(input, "QUIT") != 0) {
 
-        // Scans the user's input.
-        scanf(" %s", input);
+        scanf(" %s", input); // Scans the user's input.
 
         if(strcmp(input, "QUIT") != 0) {
-
-            // Creates queues for the infix and postfix expressions.
-            infix = createQueue();
-            postfix = createQueue();
-
-            // Stores the infix expression in a queue.
-            storeInfix(infix, input);
-
-            // Converts the infix expression to postfix.
-            convertToPostix(postfix, infix);
-
-            // Prints out the postfix expression.
-            printQueue(postfix);
             
-            // Evaluates the postfix expression.
-            evaluatePostfix(postfix);
+            infix = createQueue();              // Creates the infix queue.
+            postfix = createQueue();            // Creates the postfix queue.
 
-            // Frees the queues from memory.
-            free(infix);
-            free(postfix);
+            storeInfix(infix, input);           // Stores the infix expression in a queue.
+            convertToPostix(postfix, infix);    // Converts the infix expression to postfix.
+            printQueue(postfix);                // Prints out the postfix expression.
+            evaluatePostfix(postfix);           // Evaluates the postfix expression.
+
+            free(infix);                        // Frees the infix queue from memory.
+            free(postfix);                      // Frees the postfix queue from memory.
 
             printf("\n\n");
         }

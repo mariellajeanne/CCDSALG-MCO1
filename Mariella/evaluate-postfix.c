@@ -3,6 +3,10 @@
  * 
  * Evaluates a postfix expression.
 */
+
+#ifndef EVALUATE_POSTFIX_
+#define EVALUATE_POSTFIX_
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -20,8 +24,8 @@ void evaluatePostfix(Queue *postfix) {
 
     Stack *operands = createStack(); // Creates a new stack for the operands.
 
-    int operand_1; // The first operand to be evaluated.
-    int operand_2; // The second operand to be evaluated.
+    int operand_1;  // The first operand to be evaluated.
+    int operand_2;  // The second operand to be evaluated.
     char *operator; // The operator to be evaluated.
 
     // Loops while the postfix expression queue is not empty.
@@ -44,29 +48,24 @@ void evaluatePostfix(Queue *postfix) {
                 operand_2 = 0;
             else
                 operand_2 = pop(operands).operand;
-
-            // Gets the first operand from the operand stack.
-            operand_1 = pop(operands).operand; 
+            
+            operand_1 = pop(operands).operand; // Gets the first operand from the operand stack.
 
             // Checks if there's a division by zero error.
             if(operand_2 == 0 && (*operator == '/' || *operator == '%')) {
                 printf("\nDivision by zero error!");
                 return;
             }
-                
-            // Stores the result.
-            Token token;
-
+            
+            Token token; // Stores the result.
             token.operand = operate(operand_1, operand_2, operator);
 
-            // Pushes the evaluated result to the operand stack.
-            push(operands, token, OPERAND);
+            push(operands, token, OPERAND); // Pushes the evaluated result to the operand stack.
         }
     }
 
-    // Gets the output from the only entry left in the operand stack.
-    printf("\n%d", pop(operands).operand);
-
-    // Frees the operand stack from memory.
-    free(operands);
+    printf("\n%d", pop(operands).operand); // Gets the output from the only entry left in the operand stack.
+    free(operands); // Frees the operand stack from memory.
 }
+
+#endif

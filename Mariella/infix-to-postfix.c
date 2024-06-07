@@ -3,6 +3,10 @@
  * 
  * Converts infix notation to postfix notation.
 */
+
+#ifndef INFIX_TO_POSTFIX_
+#define INFIX_TO_POSTFIX_
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -17,47 +21,32 @@
  * @param infix {char *} A string of the infix expression.
 */
 void storeInfix(Queue *queue, char *infix) {
-
-    // Determines if the previous character was an operand.
-    int wasOperand = 0;
-
-    // Stores the characters of an operand.
-    char operand_str[11];
-
-    // Current index of the operand string.
-    int operand_count = 0;
-
-    // Length of the infix expression's string.
-    int infix_len = strlen(infix);
-
+    
+    int wasOperand = 0;             // Determines if the previous character was an operand.
+    char operand_str[11];           // Stores the characters of an operand.
+    int operand_count = 0;          // Current index of the operand string.
+    int infix_len = strlen(infix);  // Length of the infix expression's string.
+    
     // Loops through the infix expression's string.
     for(int i = 0; i < infix_len; i++) {
 
         // Executes if the current character is a number.
         if(isNumber(infix[i])) {
 
-            // Concatinates the current number to the operand's string.
-            operand_str[operand_count] = infix[i];
+            
+            operand_str[operand_count] = infix[i]; // Concatinates the current number to the operand's string.            
+            operand_str[operand_count + 1] = '\0'; // Sets the next character to null.
 
-            // Sets the next character to null.
-            operand_str[operand_count + 1] = '\0';
-
-            // Increases the operand digit count.
-            operand_count++;
-
-            // An operand has recently been checked.
-            wasOperand = 1;
+            operand_count++;    // Increases the operand digit count.
+            wasOperand = 1;     // An operand has recently been checked.
 
             // Executes if the operand is the last token of the expression.
             if(i == infix_len - 1) {
                 
-                // Stores the operand.
-                Token token = {.operand = atoi(operand_str)};
+                Token token = {.operand = atoi(operand_str)}; // Stores the operand.
+                enqueue(queue, token, OPERAND);               // Adds the token to the queue.
 
-                // Adds the token to the queue.
-                enqueue(queue, token, OPERAND); 
-
-                operand_count = 0;
+                operand_count = 0;  // Resets the operand digit count.
             }
 
         // Executes if the current character is a symbol.
@@ -65,18 +54,12 @@ void storeInfix(Queue *queue, char *infix) {
 
             // Executes if the previous token was an operand.
             if(wasOperand) {
+
+                Token token = {.operand = atoi(operand_str)};   // Stores the operand.
+                enqueue(queue, token, OPERAND);                 // Adds the token to the queue.
                 
-                // Stores the operand.
-                Token token = {.operand = atoi(operand_str)};
-
-                // Adds the token to the queue.
-                enqueue(queue, token, OPERAND);
-
-                // An operand has already been dealt with.
-                wasOperand = 0;
-
-                // Resets the operand digit count.
-                operand_count = 0;
+                wasOperand = 0;     // An operand has already been dealt with.
+                operand_count = 0;  // Resets the operand digit count.
             }
 
             char *operator_str; // String of the operator.
@@ -84,29 +67,19 @@ void storeInfix(Queue *queue, char *infix) {
             // Executes if the operator has two characters.
             if(i < infix_len - 1 && hasLengthTwo(infix[i], infix[i + 1])) {
                 
-                // Allocates memory for the operator string.
-                operator_str = calloc(3, sizeof(char));
-
-                // Adds the characters.
-                sprintf(operator_str, "%c%c", infix[i], infix[i + 1]); 
+                operator_str = calloc(3, sizeof(char)); // Allocates memory for the operator string.
+                sprintf(operator_str, "%c%c", infix[i], infix[i + 1]);  // Adds the characters to the buffer.
                 
                 i++; // Skips an iteration.
 
             // Executes if the operator has one character.
             } else {
-                
-                // Allocates memory for the operator.
-                operator_str = calloc(2, sizeof(char));
-
-                // Stores the operator string.
-                sprintf(operator_str, "%c", infix[i]);
+                operator_str = calloc(2, sizeof(char)); // Allocates memory for the operator.
+                sprintf(operator_str, "%c", infix[i]);  // Stores the operator string.
             }
-
-            // Stores the token.
-            Token token = {.operator = operator_str};
-
-            // Adds the token to the queue.
-            enqueue(queue, token, OPERATOR);
+            
+            Token token = {.operator = operator_str};   // Stores the token.
+            enqueue(queue, token, OPERATOR);            // Adds the token to the queue.
         }
     }
 }
@@ -119,8 +92,7 @@ void storeInfix(Queue *queue, char *infix) {
 */
 void convertToPostix(Queue *postfix, Queue *infix) {
 
-    // Creates a new stack for the operators.
-    Stack *operators = createStack();
+    Stack *operators = createStack();   // Creates a new stack for the operators.
 
     // Loops while the infix queue is not empty.
     while(!isQueueEmpty(*infix)) {
@@ -132,48 +104,28 @@ void convertToPostix(Queue *postfix, Queue *infix) {
         // Executes if the token is an operator.
         else if(getQueueEntryType(*getHeadEntry(*infix)) == OPERATOR) {
 
-            // Pushes opening parentheses to the operator stack.
-            if(*getHeadToken(*infix).operator == '(')
-                push(operators, dequeue(infix, 1), OPERATOR);
+            /** While the priority of the infix queue's head is lesser than
+             *  or equal to that of the operator stack's top, the operator
+             *  in the stack's top is added to the postfix queue.
+             */
+            while(!isStackEmpty(*operators) &&
+                  getPriority(getHeadToken(*infix).operator, ICP) <=
+                  getPriority(getTopToken(*operators).operator, ISP)) {
 
-            // Executes if the current operator is a closing parenthesis.
-            else if(*getHeadToken(*infix).operator == ')') {
+                enqueue(postfix, pop(operators), OPERATOR);
+            }
 
-                /** Adds the operators from the operator stack to the postfix
-                 *  queue until an opening parenthesis has been reached.
-                 */
-                while(*getTopToken(*operators).operator != '(') {
-                    enqueue(postfix, pop(operators), OPERATOR);
+            // Adds the head of the infix queue to the top of the operator stack.
+            push(operators, dequeue(infix, 1), OPERATOR);
+
+            /** If the top of the operator stack is a closing parenthesis,
+             *  pops the closing parenthesis and nearest opening parenthesis.
+             */ 
+            if(!isStackEmpty(*operators)) {
+                if(*getTopToken(*operators).operator == ')') {
+                    pop(operators);
+                    pop(operators);
                 }
-                
-                // Removes the opening parenthesis from the operator stack.
-                pop(operators); 
-
-                // Removes the closing parenthesis from the infix queue.
-                dequeue(infix, 1);
-
-            // Executes if the current operator is not a closing parenthesis.
-            } else {
-
-                /** While the priority of the infix queue's head is lesser than
-                 *  or equal to that of the operator stack's top, the operator
-                 *  in the stack's top is added to the postfix queue.
-                 * 
-                 *  This excludes ^ because of its right-to-left association.
-                */
-                if(!(*getHeadToken(*infix).operator == '^' &&
-                    *getTopToken(*operators).operator == '^'))
-                {
-                    while(!isStackEmpty(*operators) &&
-                        (getPriority(getHeadToken(*infix).operator) <=
-                        getPriority(getTopToken(*operators).operator))) {
-
-                        enqueue(postfix, pop(operators), OPERATOR);
-                    }
-                }
-
-                // Adds the head of the infix queue to the top of the operator stack.
-                push(operators, dequeue(infix, 1), OPERATOR);
             }
         }
     }
@@ -189,3 +141,5 @@ void convertToPostix(Queue *postfix, Queue *infix) {
 
     free(operators); // Frees the operator stack from memory.
 }
+
+#endif

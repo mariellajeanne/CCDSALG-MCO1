@@ -4,8 +4,8 @@
  * Evaluates operators and operands.
 */
 
-#ifndef TOKEN
-#define TOKEN
+#ifndef TOKEN_
+#define TOKEN_
 
 #include <stdlib.h>
 #include <string.h>
@@ -13,11 +13,16 @@
 
 typedef union Token Token;
 typedef unsigned char TokenType;
+typedef unsigned char PriorityType;
 
 // Token types (operand/operator).
 #define UNDEFINED   (unsigned char)'0'
 #define OPERAND     (unsigned char)'1'
 #define OPERATOR    (unsigned char)'2'
+
+// Priority types (in-coming priority / in-stack priority)
+#define ICP (unsigned char)'0'
+#define ISP (unsigned char)'1'
 
 // The token.
 union Token {
@@ -53,48 +58,38 @@ int hasLengthTwo(char first, char second) {
  * Returns the priority value of an operator.
  * 
  * @param operator {char *} The string of the operator.
+ * @param type {PriorityType} The type of priority being evaluated.
  * @return {int} The operator's priority.
 */
-int getPriority(char *operator) {
-
-    if(operator == NULL)
-        return 0;
+int getPriority(char *operator, PriorityType type) {
 
     switch(*operator) {
 
-        case '!':
-            if(strlen(operator) == 1)
-                return 8;
-            else
-                return 3;
-
+        case '&': return 2;
+        case '|': return 3;
+        case '=': return 4;
+        case '>': case '<': return 5;
+        case '+': case '-': return 6;
+        case '*': case '/': case '%': return 7;
+        
         case '^':
-            return 7;
+            if(type == ICP) return 9;
+            else return 8;
+        
+        case '!':
+            if(strlen(operator) == 2) return 4;
+            else if(type == ICP) return 11;
+            else return 10;
 
-        case '*':
-        case '/':
-        case '%':
-            return 6;
+        case ')':
+            if(type == ICP) return 1;
+            else return 12;
 
-        case '+':
-        case '-':
-            return 5;
+        case '(':
+            if(type == ICP) return 13;
+            else return 0;
 
-        case '<':
-        case '>':
-            return 4;
-
-        case '=':
-            return 3;
-
-        case '&':
-            return 2;
-
-        case '|':
-            return 1;
-
-        default:
-            return 0;
+        default: return -1;
     }
 }
 
@@ -107,6 +102,8 @@ int getPriority(char *operator) {
  * @return {int} The evaluated expression.
 */
 int operate(int operand_1, int operand_2, char *operator) {
+
+    // Executes if the operator has a length of 2.
 
     if(strlen(operator) == 2) {
 
@@ -124,6 +121,8 @@ int operate(int operand_1, int operand_2, char *operator) {
             case '|':
                 return operand_1 || operand_2;
         }
+
+    // Executes if the operator has a length of 1.
 
     } else {
 

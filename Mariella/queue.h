@@ -5,8 +5,8 @@
  * helper functions.
 */
 
-#ifndef QUEUE
-#define QUEUE
+#ifndef QUEUE_
+#define QUEUE_
 
 #include <stdlib.h>
 #include <string.h>
@@ -40,10 +40,9 @@ struct QueueEntry {
 */
 Queue *createQueue() {
 
-    // Allocates memory for the queue.
-    Queue *queue = calloc(1, sizeof(*queue)); 
+    Queue *queue = calloc(1, sizeof(*queue)); // Allocates memory for the queue.
     
-    queue->size = 0; // Sets the queue's size to 0.
+    queue->size = 0;    // Sets the queue's size to 0.
     queue->head = NULL; // Sets the head's pointer to NULL.
     queue->tail = NULL; // Sets the tail's pointer to NULL.
 
@@ -59,12 +58,11 @@ Queue *createQueue() {
 */
 QueueEntry *createQueueEntry(Token token, TokenType type) {
 
-    // Allocates memory for the entry.
-    QueueEntry *entry = calloc(1, sizeof(*entry));
+    QueueEntry *entry = calloc(1, sizeof(*entry)); // Allocates memory for the entry.
 
-    entry->token = token; // Sets the entry's token.
-    entry->type = type; // Sets the entry's token type.
-    entry->next = NULL; // Sets the pointer to the next entry to NULL.
+    entry->token = token;   // Sets the entry's token.
+    entry->type = type;     // Sets the entry's token type.
+    entry->next = NULL;     // Sets the pointer to the next entry to NULL.
 
     return entry;
 }
@@ -107,8 +105,7 @@ void freeQueueEntry(QueueEntry *entry) {
 */
 void enqueue(Queue *queue, Token token, TokenType type) {
 
-    // Creates a new queue entry.
-    QueueEntry *entry = createQueueEntry(token, type);
+    QueueEntry *entry = createQueueEntry(token, type); // Creates a new queue entry.
 
     // Sets the head to the new entry if it is empty.
     if(isQueueEmpty(*queue))
@@ -118,9 +115,8 @@ void enqueue(Queue *queue, Token token, TokenType type) {
     if(queue->tail != NULL)
         queue->tail->next = entry;
     queue->tail = entry;
-
-    // Updates the size of the queue.
-    queue->size++; 
+    
+    queue->size++; // Updates the size of the queue.
 }
 
 /**
@@ -133,9 +129,7 @@ void enqueue(Queue *queue, Token token, TokenType type) {
 Token dequeue(Queue *queue, int isFree) {
 
     Token token; // Stores the token to be removed.
-
-    // Temporarily stores the former head.
-    QueueEntry *temp = queue->head; 
+    QueueEntry *temp = queue->head; // Temporarily stores the former head.
 
     // Stores operands.
     if(queue->head->type == OPERAND)
@@ -151,11 +145,9 @@ Token dequeue(Queue *queue, int isFree) {
     // Frees the former head.
     if(isFree) freeQueueEntry(temp);
 
-    // Decreases the size of the queue by 1.
-    queue->size--; 
-
-    // Returns the removed token.
-    return token;
+    
+    queue->size--; // Decreases the size of the queue by 1.
+    return token; // Returns the removed token.
 }
 
 /**
@@ -224,12 +216,9 @@ TokenType getQueueEntryType(QueueEntry entry) {
  * @param this {Queue} The queue to be printed.
 */
 void printQueue(Queue *queue) {
-
-    // Saves the head of the queue.
-    QueueEntry *head = queue->head;
-
-    // Saves the size of the queue.
-    int size = queue->size;
+    
+    QueueEntry *head = queue->head; // Saves the head of the queue.
+    int size = queue->size;         // Saves the size of the queue.
 
     // Loops while the queue is not empty.
     while(!isQueueEmpty(*queue)) {
@@ -247,11 +236,8 @@ void printQueue(Queue *queue) {
             printf(" ");
     }
 
-    // Resets the head of the queue.
-    queue->head = head;
-
-    // Resets the size of the queue.
-    queue->size = size;
+    queue->head = head; // Resets the head of the queue.
+    queue->size = size; // Resets the size of the queue.
 }
 
 #endif

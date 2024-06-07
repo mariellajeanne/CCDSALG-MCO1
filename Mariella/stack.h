@@ -5,8 +5,8 @@
  * helper functions.
 */
 
-#ifndef STACK
-#define STACK
+#ifndef STACK_
+#define STACK_
 
 #include <stdlib.h>
 #include <string.h>
@@ -38,11 +38,10 @@ struct StackEntry {
 */
 Stack *createStack() {
 
-    // Allocates memory for the stack.
-    Stack *stack = calloc(1, sizeof(*stack));
+    Stack *stack = calloc(1, sizeof(*stack)); // Allocates memory for the stack.
 
-    stack->size = 0; // Sets the stack's size to 0.
-    stack->top = NULL; // Sets the top's pointer to NULL.
+    stack->size = 0;    // Sets the stack's size to 0.
+    stack->top = NULL;  // Sets the top's pointer to NULL.
 
     return stack;
 }
@@ -56,12 +55,11 @@ Stack *createStack() {
 */
 StackEntry *createStackEntry(Token token, TokenType type) {
 
-    // Allocates memory for the entry.
-    StackEntry *entry = calloc(1, sizeof(*entry));
+    StackEntry *entry = calloc(1, sizeof(*entry)); // Allocates memory for the entry.
 
-    entry->token = token; // Sets the entry's token.
-    entry->type = type; // Sets the entry's token type.
-    entry->prev = NULL; // Sets the the previous entry's pointer to NULL.
+    entry->token = token;   // Sets the entry's token.
+    entry->type = type;     // Sets the entry's token type.
+    entry->prev = NULL;     // Sets the the previous entry's pointer to NULL.
 
     return entry;
 }
@@ -92,7 +90,7 @@ int isStackFull(Stack stack) {
  * @param entry {StackEntry *} A pointer to the stack entry.
 */
 void freeStackEntry(StackEntry *entry) {
-    free(entry); // Frees the entry's pointer.
+    free(entry);
 }
 
 /**
@@ -104,8 +102,7 @@ void freeStackEntry(StackEntry *entry) {
 */
 void push(Stack *stack, Token token, TokenType type) {
     
-    // Creates a new stack entry.
-    StackEntry *entry = createStackEntry(token, type);
+    StackEntry *entry = createStackEntry(token, type); // Creates a new stack entry.
 
     // Re-assigns the top.
     entry->prev = stack->top;
@@ -131,18 +128,14 @@ Token pop(Stack *stack) {
     // Stores operators.
     else token.operator = stack->top->token.operator;
     
-    // Frees the top's memory from the heap.
-    freeStackEntry(stack->top);
-
-    // Updates the stack's size.
-    stack->size--;
+    freeStackEntry(stack->top); // Frees the top's memory from the heap.
+    stack->size--;              // Updates the stack's size.
 
     // The current top's pointer is now the former's.
     if(!isStackEmpty(*stack))
         stack->top = stack->top->prev;
     
-    // Returns the pointer to the deleted entry.
-    return token;
+    return token; // Returns the pointer to the deleted entry.
 }
 
 /**
