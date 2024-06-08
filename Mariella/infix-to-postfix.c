@@ -89,7 +89,7 @@ void storeInfix(Queue *queue, char *infix) {
  * @param postfix {Queue *} A pointer to the postfix queue.
  * @param infix {Queue *} A pointer to the infix queue.
 */
-void convertToPostix(Queue *postfix, Queue *infix) {
+void convertToPostfix(Queue *postfix, Queue *infix) {
 
     Stack *operators = createStack();   // Creates a new stack for the operators.
 

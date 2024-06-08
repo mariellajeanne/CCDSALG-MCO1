@@ -65,6 +65,15 @@ StackEntry *createStackEntry(Token token, TokenType type) {
 }
 
 /**
+ * Frees a stack entry from the heap.
+ * 
+ * @param entry {StackEntry *} A pointer to the stack entry.
+*/
+void freeStackEntry(StackEntry *entry) {
+    free(entry);
+}
+
+/**
  * Checks if a stack is empty.
  * 
  * @param stack {Stack} The stack.
@@ -82,15 +91,6 @@ int isStackEmpty(Stack stack) {
 */
 int isStackFull(Stack stack) {
     return stack.size == STACK_MAX_SIZE;
-}
-
-/**
- * Frees a stack entry from the heap.
- * 
- * @param entry {StackEntry *} A pointer to the stack entry.
-*/
-void freeStackEntry(StackEntry *entry) {
-    free(entry);
 }
 
 /**

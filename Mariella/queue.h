@@ -68,6 +68,15 @@ QueueEntry *createQueueEntry(Token token, TokenType type) {
 }
 
 /**
+ * Frees a queue entry from the heap.
+ * 
+ * @param entry {QueueEntry *} A pointer to the queue entry.
+*/
+void freeQueueEntry(QueueEntry *entry) {
+    free(entry);
+}
+
+/**
  * Checks if a queue is empty.
  * 
  * @param stack {Queue} The queue.
@@ -85,15 +94,6 @@ int isQueueEmpty(Queue queue) {
 */
 int isQueueFull(Queue queue) {
     return queue.size == QUEUE_MAX_SIZE;
-}
-
-/**
- * Frees a queue entry from the heap.
- * 
- * @param entry {QueueEntry *} A pointer to the queue entry.
-*/
-void freeQueueEntry(QueueEntry *entry) {
-    free(entry); // Frees the entry's pointer.
 }
 
 /**
