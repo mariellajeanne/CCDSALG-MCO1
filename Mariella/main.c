@@ -32,7 +32,7 @@ int main() {
             postfix = createQueue();            // Creates the postfix queue.
 
             storeInfix(infix, input);           // Stores the infix expression in a queue.
-            convertToPostfix(postfix, infix);    // Converts the infix expression to postfix.
+            convertToPostfix(postfix, infix);   // Converts the infix expression to postfix.
             printQueue(postfix);                // Prints out the postfix expression.
             evaluatePostfix(postfix);           // Evaluates the postfix expression.
 
