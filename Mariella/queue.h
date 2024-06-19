@@ -236,6 +236,8 @@ void printQueue(Queue *queue) {
             printf(" ");
     }
 
+    printf("\n");
+
     queue->head = head; // Resets the head of the queue.
     queue->size = size; // Resets the size of the queue.
 }

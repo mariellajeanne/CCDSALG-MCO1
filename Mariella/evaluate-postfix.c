@@ -52,8 +52,9 @@ void evaluatePostfix(Queue *postfix) {
             operand_1 = pop(operands).operand; // Gets the first operand from the operand stack.
 
             // Checks if there's a division by zero error.
-            if(operand_2 == 0 && (*operator == '/' || *operator == '%')) {
-                printf("\nDivision by zero error!");
+            if((operand_2 == 0 && (*operator == '/' || *operator == '%')) ||
+              (operand_1 == 0 && operand_2 < 0 && (*operator == '^'))) {
+                printf("Division by zero error!");
                 return;
             }
             
@@ -64,7 +65,7 @@ void evaluatePostfix(Queue *postfix) {
         }
     }
 
-    printf("\n%d", pop(operands).operand); // Gets the output from the only entry left in the operand stack.
+    printf("%d", pop(operands).operand); // Gets the output from the only entry left in the operand stack.
     free(operands); // Frees the operand stack from memory.
 }
 
