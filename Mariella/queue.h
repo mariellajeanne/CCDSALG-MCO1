@@ -14,7 +14,7 @@
 
 #include "token.h"
 
-#define QUEUE_MAX_SIZE (1 << 8) // Max size of the queue.
+#define QUEUE_MAX_SIZE 256 // Max size of the queue.
 
 typedef struct Queue Queue;
 typedef struct QueueEntry QueueEntry;
@@ -145,7 +145,6 @@ Token dequeue(Queue *queue, int isFree) {
     // Frees the former head.
     if(isFree) freeQueueEntry(temp);
 
-    
     queue->size--; // Decreases the size of the queue by 1.
     return token; // Returns the removed token.
 }

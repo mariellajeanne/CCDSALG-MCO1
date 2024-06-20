@@ -1,0 +1,24 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "externalConsole": true,
+      "cwd": "c:/Users/marie/OneDrive/Documents/0 School/0 BS CS-ST18/0 Subjects/SY 2023-2024/Term 3/CCDSALG/MCO1/MCO1/Mariella",
+      "program": "c:/Users/marie/OneDrive/Documents/0 School/0 BS CS-ST18/0 Subjects/SY 2023-2024/Term 3/CCDSALG/MCO1/MCO1/Mariella/build/Debug/outDebug",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]
+}

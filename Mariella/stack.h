@@ -13,7 +13,7 @@
 
 #include "token.h"
 
-#define STACK_MAX_SIZE (1 << 8) // Max size of the stack.
+#define STACK_MAX_SIZE 256 // Max size of the stack.
 
 typedef struct Stack Stack;
 typedef struct StackEntry StackEntry;

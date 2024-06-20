@@ -17,8 +17,8 @@
 
 int main() {
 
-    char *input = calloc((1 << 8), sizeof(char));   // Allocates memory for the user's input.
-    Queue *infix, *postfix;                         // Queues for the infix and postfix expressions.
+    char *input = calloc(256, sizeof(char));   // Allocates memory for the user's input.
+    Queue *infix, *postfix;                    // Queues for the infix and postfix expressions.
 
     // Continues while the user hasn't quit.
     
